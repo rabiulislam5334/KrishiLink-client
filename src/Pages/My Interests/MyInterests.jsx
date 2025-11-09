@@ -1,7 +1,11 @@
 import React from "react";
 
 const MyInterests = () => {
-  return <div>My Interests</div>;
+  return (
+    <div>
+      <h1>this is my interrest</h1>
+    </div>
+  );
 };
 
 export default MyInterests;

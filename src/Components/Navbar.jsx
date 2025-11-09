@@ -1,10 +1,10 @@
-import React, { use, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Navber = () => {
-  const { user, logOut } = use(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [theme, setTheme] = useState("light");
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
@@ -47,7 +47,8 @@ const Navber = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const link = (
+  // ✅ Conditional Nav Links
+  const navLinks = (
     <>
       <li>
         <NavLink
@@ -64,19 +65,6 @@ const Navber = () => {
 
       <li>
         <NavLink
-          to="/my_profile"
-          className={({ isActive }) =>
-            isActive
-              ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-              : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
-          }
-        >
-          My Profile
-        </NavLink>
-      </li>
-
-      <li>
-        <NavLink
           to="/all_crops"
           className={({ isActive }) =>
             isActive
@@ -87,6 +75,86 @@ const Navber = () => {
           All Crops
         </NavLink>
       </li>
+
+      {!user ? (
+        <>
+          <li>
+            <NavLink
+              to="/auth/login"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              Login
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/auth/register"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              Register
+            </NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink
+              to="/my_profile"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              My Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/add_crops"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              Add Crops
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my_posts"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              My Posts
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my_interests"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
+                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              }
+            >
+              My Interests
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -96,6 +164,7 @@ const Navber = () => {
         <div className="navbar">
           {/* Left side */}
           <div className="navbar-start">
+            {/* Dropdown for Mobile */}
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -121,7 +190,7 @@ const Navber = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
-                {link}
+                {navLinks}
               </ul>
             </div>
 
@@ -140,14 +209,15 @@ const Navber = () => {
 
           {/* Center */}
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu gap-4 text-lg menu-horizontal px-1">{link}</ul>
+            <ul className="menu gap-4 text-lg menu-horizontal px-1">
+              {navLinks}
+            </ul>
           </div>
 
           {/* Right side */}
           <div className="navbar-end gap-5 items-center relative" ref={menuRef}>
-            {user && (
+            {user ? (
               <div className="relative">
-                {/* Avatar */}
                 <img
                   className="w-12 h-12 rounded-full border-2 border-green-500 cursor-pointer object-cover"
                   src={
@@ -203,16 +273,7 @@ const Navber = () => {
                   </div>
                 )}
               </div>
-            )}
-
-            {!user && (
-              <Link
-                to="/auth/login"
-                className="btn hover:bg-orange-400 bg-orange-500 text-white font-bold text-lg rounded-xl"
-              >
-                Login
-              </Link>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

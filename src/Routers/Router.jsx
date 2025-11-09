@@ -23,6 +23,9 @@ import ForgotPassword from "../Auth/ForgotPassword";
 import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Auth/Login";
 import Registration from "../Auth/Registration";
+import MyInterests from "../Pages/My Interests/MyInterests";
+import MyPost from "../Pages/My posts/Mypost";
+import AddCrops from "../Pages/Add Crops/AddCrops";
 
 export const router = createBrowserRouter([
   {
@@ -45,12 +48,30 @@ export const router = createBrowserRouter([
 
       {
         path: "/my_profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "/add_crops",
+        element: <AddCrops />,
+      },
+
+      {
+        path: "/my_interests",
         element: (
           <PrivetRouter>
-            <MyProfile />
+            <MyInterests />
           </PrivetRouter>
         ),
       },
+      {
+        path: "/my_posts",
+        element: (
+          <PrivetRouter>
+            <MyPost />
+          </PrivetRouter>
+        ),
+      },
+
       {
         path: "/auth/forgot-password",
         element: <ForgotPassword></ForgotPassword>,
