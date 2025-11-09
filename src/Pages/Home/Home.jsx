@@ -1,7 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import LatestCrops from "../../Components/LatestCrops";
+// import LatestCrops from "../components/LatestCrops";
 
-const Home = () => {
-  return <div>this is home</div>;
+const HomePage = () => {
+  const [crops, setCrops] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/crops")
+      .then((res) => res.json())
+      .then((data) => {
+        // Sort by _id descending (latest first) and take 6
+        const latest = data
+          .sort((a, b) => b._id.localeCompare(a._id))
+          .slice(0, 6);
+        setCrops(latest);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  return (
+    <div>
+      {/* Hero Slider Section */}
+      <section className="hero h-96 bg-green-200 flex items-center justify-center">
+        <h1 className="text-4xl font-bold">Welcome to KrishiLink</h1>
+      </section>
+
+      {/* Latest Crops Section */}
+      <section className="mt-10 px-5">
+        <h2 className="text-2xl font-semibold mb-4">Latest Crops</h2>
+        <LatestCrops crops={crops} />
+        <div className="text-right mt-2">
+          <a href="/all-crops" className="text-blue-500 underline">
+            View All Crops
+          </a>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section className="mt-10 px-5 py-5 bg-gray-100">
+        <h2 className="text-2xl font-semibold mb-4">How it Works</h2>
+        <ol className="list-decimal ml-5">
+          <li>Register or Login</li>
+          <li>Add your crops or browse others</li>
+          <li>Send interest to collaborate or buy crops</li>
+        </ol>
+      </section>
+
+      {/* Agro News Section */}
+      <section className="mt-10 px-5 py-5">
+        <h2 className="text-2xl font-semibold mb-4">Agro News</h2>
+        <p>Stay updated with the latest agricultural news...</p>
+      </section>
+
+      {/* Extra Section */}
+      <section className="mt-10 px-5 py-5 bg-green-50">
+        <h2 className="text-2xl font-semibold mb-4">Farm Tips</h2>
+        <p>Learn new farming techniques to boost productivity...</p>
+      </section>
+    </div>
+  );
 };
 
-export default Home;
+export default HomePage;

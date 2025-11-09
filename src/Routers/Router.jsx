@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
 
       // protected route
       {
-        path: "/crops_details/:id",
+        path: "/crops/:id",
         element: (
           <PrivetRouter>
             <CropsDetails />
