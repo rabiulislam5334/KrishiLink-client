@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
-// import { AuthContext } from "../Provider/AuthProvider";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
@@ -15,6 +14,7 @@ const Registration = () => {
   const navigate = useNavigate();
   const [viewpassword, setPassword] = useState(false);
 
+  // --- Manual Registration Handler ---
   const handleReg = (e) => {
     e.preventDefault();
     setError("");
@@ -27,13 +27,13 @@ const Registration = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    //  Name Validation
+    // Name Validation
     if (name.length < 5) {
       setNameError("Name should be more than 5 characters");
       return;
     }
 
-    //  Password Validation
+    // Password Validation
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passRegex.test(password)) {
       setPassError(
@@ -42,18 +42,28 @@ const Registration = () => {
       return;
     }
 
-    //  Create User
+    // Firebase createUser
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        updateUser({
-          displayName: name,
-          photoURL: photo,
-        })
+
+        // Update Firebase profile
+        updateUser({ displayName: name, photoURL: photo })
           .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photo });
-            toast.success("Your Registration successful!");
-            navigate("/");
+            // Save user in MongoDB
+            const newUser = { name, email, image: photo || "" };
+            fetch("http://localhost:3000/users", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(newUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log("MongoDB User ID:", data.userId || data.insertedId);
+                setUser({ ...user, displayName: name, photoURL: photo });
+                toast.success("Registration successful!");
+                navigate("/");
+              });
           })
           .catch((err) => {
             console.log(err);
@@ -61,32 +71,46 @@ const Registration = () => {
             navigate("/");
           });
       })
-      .catch((err) => {
-        setError(err.code);
-      });
+      .catch((err) => setError(err.code));
   };
 
-  //  Google Login Handler
+  // --- Google Login/Register Handler ---
   const handleGoogleLogin = () => {
     googleLogin()
-      .then(() => {
-        toast.success("Your Registration successful!");
-        navigate("/");
+      .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        };
+
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("MongoDB User ID:", data.userId || data.insertedId);
+            toast.success("Registration/Login successful!");
+            navigate("/");
+          })
+          .catch((err) => setError(err.message));
       })
       .catch((err) => setError(err.message));
   };
+
   const showPassword = (e) => {
     e.preventDefault();
     setPassword(!viewpassword);
   };
 
   return (
-    <div className="flex justify-center items-center ">
-      <div className="card bg-base-100 w-full  py-6 ">
+    <div className="flex justify-center items-center">
+      <div className="card bg-base-100 w-full py-6">
         <h1 className="text-center font-semibold text-xl mb-4">
           Register Your Account
         </h1>
-
         <div className="card-body">
           <form onSubmit={handleReg}>
             <fieldset className="fieldset">
@@ -122,16 +146,16 @@ const Registration = () => {
 
               {/* Password */}
               <label className="label">Password</label>
-              <div className=" relative">
+              <div className="relative">
                 <input
                   type={viewpassword ? "text" : "password"}
                   className="input input-bordered w-full pr-12"
-                  placeholder="Password"
                   name="password"
+                  placeholder="Password"
                 />
                 <button
                   onClick={showPassword}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 "
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 >
                   {viewpassword ? (
                     <FaRegEye size={20} />
@@ -148,18 +172,18 @@ const Registration = () => {
                 <span className="text-sm">Accept Terms & Conditions</span>
               </div>
 
-              {/* Error */}
               {error && <p className="text-red-500 mt-2">{error}</p>}
 
-              {/* Register Button */}
               <button type="submit" className="btn btn-neutral mt-4 w-full">
                 Register
               </button>
+
               <div>
                 <h1 className="text-xl font-bold text-center text-orange-500">
                   Or
                 </h1>
               </div>
+
               {/* Google Login */}
               <button
                 type="button"
@@ -169,7 +193,6 @@ const Registration = () => {
                 <FcGoogle size={20} /> Continue with Google
               </button>
 
-              {/* Login Link */}
               <p className="my-3 text-center text-sm">
                 Already Have An Account?{" "}
                 <Link to="/auth/login" className="text-blue-500 font-semibold">

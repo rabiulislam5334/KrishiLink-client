@@ -48,11 +48,20 @@ export const router = createBrowserRouter([
 
       {
         path: "/my_profile",
-        element: <MyProfile />,
+
+        element: (
+          <PrivetRouter>
+            <MyProfile />
+          </PrivetRouter>
+        ),
       },
       {
         path: "/add_crops",
-        element: <AddCrops />,
+        element: (
+          <PrivetRouter>
+            <AddCrops />
+          </PrivetRouter>
+        ),
       },
 
       {
