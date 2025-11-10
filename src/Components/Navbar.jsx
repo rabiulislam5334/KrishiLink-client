@@ -143,7 +143,7 @@ const Navber = () => {
           </li>
           <li>
             <NavLink
-              to="/my_interests"
+              to="/interests"
               className={({ isActive }) =>
                 isActive
                   ? "text-orange-500 border-b-2 border-orange-500 font-semibold"

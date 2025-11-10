@@ -23,9 +23,10 @@ import ForgotPassword from "../Auth/ForgotPassword";
 import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Auth/Login";
 import Registration from "../Auth/Registration";
-import MyInterests from "../Pages/My Interests/MyInterests";
+// import MyInterests from "../Pages/My Interests/MyInterests";
 import MyPost from "../Pages/My posts/Mypost";
 import AddCrops from "../Pages/Add Crops/AddCrops";
+import MyInterests from "../Pages/My Interests/MyInterests";
 
 export const router = createBrowserRouter([
   {
@@ -65,7 +66,7 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/my_interests",
+        path: "/interests",
         element: (
           <PrivetRouter>
             <MyInterests />

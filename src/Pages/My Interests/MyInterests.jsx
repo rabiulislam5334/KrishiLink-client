@@ -8,23 +8,32 @@ const MyInterests = () => {
   const [interests, setInterests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchMyInterests = async () => {
-    try {
+  // const fetchMyInterests = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `http://localhost:3000/interests?userEmail=${user.email}`
+  //     );
+  //     const data = await res.json();
+  //     setInterests(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    const fetchMyInterests = async () => {
       const res = await fetch(
         `http://localhost:3000/interests?userEmail=${user.email}`
       );
       const data = await res.json();
       setInterests(data);
       setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+    };
 
-  useEffect(() => {
     fetchMyInterests();
-  }, []);
+  }, [user]);
 
   if (loading) return <p>Loading...</p>;
 
