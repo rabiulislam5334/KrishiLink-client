@@ -47,7 +47,7 @@ const AddCrops = () => {
       .then((res) => res.json())
       .then(() => {
         toast.success("Crop added successfully!");
-        navigate("/my-posts");
+        navigate("/my_posts");
       })
       .catch((err) => console.error(err));
   };
