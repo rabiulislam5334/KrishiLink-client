@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import { Link } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 
@@ -8,31 +7,24 @@ const MyInterests = () => {
   const [interests, setInterests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const fetchMyInterests = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       `http://localhost:3000/interests?userEmail=${user.email}`
-  //     );
-  //     const data = await res.json();
-  //     setInterests(data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
-
   useEffect(() => {
     const fetchMyInterests = async () => {
-      const res = await fetch(
-        `http://localhost:3000/interests?userEmail=${user.email}`
-      );
-      const data = await res.json();
-      setInterests(data);
-      setLoading(false);
+      try {
+        const res = await fetch(
+          `http://localhost:3000/interests?userEmail=${user.email}`
+        );
+        const data = await res.json();
+        setInterests(data);
+      } catch (error) {
+        console.error("Failed to fetch interests:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchMyInterests();
+    if (user?.email) {
+      fetchMyInterests();
+    }
   }, [user]);
 
   if (loading) return <p>Loading...</p>;
@@ -61,13 +53,17 @@ const MyInterests = () => {
                     to={`/crops/${interest.cropId}`}
                     className="text-blue-500 underline"
                   >
-                    {interest.cropName}
+                    {interest.cropName || "Unknown Crop"}
                   </Link>
                 </td>
-                <td className="border px-4 py-2">{interest.ownerName}</td>
+                <td className="border px-4 py-2">
+                  {interest.owner?.name || "N/A"}
+                </td>
                 <td className="border px-4 py-2">{interest.quantity}</td>
                 <td className="border px-4 py-2">{interest.message}</td>
-                <td className="border px-4 py-2">{interest.status}</td>
+                <td className="border px-4 py-2 capitalize">
+                  {interest.status}
+                </td>
               </tr>
             ))}
           </tbody>
