@@ -94,9 +94,9 @@ const Choose = () => {
           </div>
 
           {/* Main (Right) Image: Tractor in field - Positioned right/top */}
-          <div className="absolute top-0 right-0 w-full h-full sm:w-[85%] sm:h-[90%] md:w-[70%] md:h-[80%] rounded-3xl overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-full h-full sm:w-[85%] sm:h-[90%] md:w-[90%] md:h-[80%] rounded-3xl overflow-hidden shadow-2xl">
             <img
-              src={bg2} // Tractor image as main right overlay
+              src={bg1} // Tractor image as main right overlay
               alt="Tractor working in a large field during sunset"
               className="w-full h-full object-cover"
             />
@@ -105,14 +105,14 @@ const Choose = () => {
           {/* Overlay (Left) Image: Sunset field - Positioned bottom-left, overlapping */}
           <div className="absolute bottom-0 left-0 w-[80%] h-[55%] sm:w-[50%] sm:h-[65%] md:w-[45%] md:h-[70%] rounded-3xl overflow-hidden shadow-2xl z-10 -translate-x-4 md:-translate-x-8">
             <img
-              src={bg1} // Sunset field as left overlay
+              src={bg2} // Sunset field as left overlay
               alt="Close-up of a field at sunset"
               className="w-full h-full object-cover"
             />
           </div>
 
           {/* Stats Box: White rounded, positioned bottom-right on top of the overlap */}
-          <div className="absolute bottom-[20%] right-0 transform translate-x-4 md:translate-x-8 bg-white p-6 md:p-8 rounded-3xl shadow-2xl z-20 w-[60%] sm:w-[45%] md:w-[30%] max-w-[250px] border border-gray-100">
+          <div className="absolute bottom-[0%] right-0 transform translate-x-4 md:translate-x-8 bg-white p-6 md:p-8 rounded-3xl shadow-2xl z-20 w-[60%] sm:w-[45%] md:w-[50%] max-w-[250px] border border-gray-100">
             <div className="flex flex-col items-center text-center">
               {/* Custom Icon Stack: Sun + Harvest */}
               <div className="flex flex-col items-center mb-3">

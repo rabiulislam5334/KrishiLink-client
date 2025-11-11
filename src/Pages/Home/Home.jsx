@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LatestCrops from "../../Components/LatestCrops";
 import HeroSlider from "../../Components/Herosection";
 import Choose from "../../Components/Choose";
+// import CropCard from "../../Components/LatestCrops";
 // import LatestCrops from "../components/LatestCrops";
 
 const HomePage = () => {
@@ -27,13 +28,10 @@ const HomePage = () => {
       <Choose></Choose>
 
       {/* Latest Crops Section */}
-      <section className="mt-10 px-5">
-        <h2 className="text-2xl font-semibold mb-4">Latest Crops</h2>
-        <LatestCrops crops={crops} />
-        <div className="text-right mt-2">
-          <a href="/all-crops" className="text-blue-500 underline">
-            View All Crops
-          </a>
+      <section className=" px-5">
+        <h2 className="text-2xl font-semibold mb-4"></h2>
+        <div>
+          <LatestCrops crops={crops} />
         </div>
       </section>
 
