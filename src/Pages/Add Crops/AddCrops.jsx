@@ -64,14 +64,26 @@ const AddCrops = () => {
           onChange={handleChange}
           required
         />
-        <input
-          name="type"
-          placeholder="Type (Vegetable, Fruit, Grain)"
-          className="input w-full"
-          value={formData.type}
-          onChange={handleChange}
-          required
-        />
+
+        {/* Crop Type Dropdown */}
+        <div className="form-control">
+          <select
+            name="type"
+            className="select select-bordered w-full"
+            value={formData.type}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Type</option>
+            <option value="Vegetable">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Grain">Grain</option>
+            <option value="Spice">Spice</option>
+            <option value="Flower">Flower</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
         <input
           name="pricePerUnit"
           type="number"
@@ -81,6 +93,7 @@ const AddCrops = () => {
           onChange={handleChange}
           required
         />
+
         <select
           name="unit"
           className="input w-full"
@@ -91,6 +104,7 @@ const AddCrops = () => {
           <option value="ton">ton</option>
           <option value="bag">bag</option>
         </select>
+
         <input
           name="quantity"
           type="number"
@@ -100,6 +114,7 @@ const AddCrops = () => {
           onChange={handleChange}
           required
         />
+
         <textarea
           name="description"
           placeholder="Description"
@@ -107,14 +122,28 @@ const AddCrops = () => {
           value={formData.description}
           onChange={handleChange}
         />
-        <input
-          name="location"
-          placeholder="Location"
-          className="input w-full"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
+
+        {/* Location Dropdown */}
+        <div className="form-control">
+          <select
+            name="location"
+            className="select select-bordered w-full"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Location</option>
+            <option value="Dhaka">Dhaka</option>
+            <option value="Chattogram">Chattogram</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Sylhet">Sylhet</option>
+            <option value="Barishal">Barishal</option>
+            <option value="Rangpur">Rangpur</option>
+            <option value="Mymensingh">Mymensingh</option>
+          </select>
+        </div>
+
         <input
           name="image"
           placeholder="Image URL"
@@ -123,6 +152,7 @@ const AddCrops = () => {
           onChange={handleChange}
           required
         />
+
         <button type="submit" className="btn btn-neutral w-full mt-2">
           Add Crop
         </button>

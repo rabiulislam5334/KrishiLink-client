@@ -15,9 +15,8 @@ const MyPost = () => {
   // Fetch user's crops
   const fetchMyCrops = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/crops?ownerEmail=${user.email}`
-      );
+      const res = await fetch(`http://localhost:3000/my-crops/${user.email}`);
+
       const data = await res.json();
       setMyCrops(data.reverse()); // newest first
       setLoading(false);
