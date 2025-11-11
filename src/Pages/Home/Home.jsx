@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LatestCrops from "../../Components/LatestCrops";
+import HeroSlider from "../../Components/Herosection";
 // import LatestCrops from "../components/LatestCrops";
 
 const HomePage = () => {
@@ -21,9 +22,7 @@ const HomePage = () => {
   return (
     <div>
       {/* Hero Slider Section */}
-      <section className="hero h-96 bg-green-200 flex items-center justify-center">
-        <h1 className="text-4xl font-bold">Welcome to KrishiLink</h1>
-      </section>
+      <HeroSlider></HeroSlider>
 
       {/* Latest Crops Section */}
       <section className="mt-10 px-5">
