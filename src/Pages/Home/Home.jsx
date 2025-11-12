@@ -5,6 +5,7 @@ import Choose from "../../Components/Choose";
 import Works from "../../Components/Works";
 import News from "../../Components/News";
 import Services from "../../Components/Services";
+import FarmTips from "../../Components/FarmTips";
 // import CropCard from "../../Components/LatestCrops";
 // import LatestCrops from "../components/LatestCrops";
 
@@ -53,8 +54,7 @@ const HomePage = () => {
 
       {/* Extra Section */}
       <section className="mt-10 px-5 py-5 bg-green-50">
-        <h2 className="text-2xl font-semibold mb-4">Farm Tips</h2>
-        <p>Learn new farming techniques to boost productivity...</p>
+        <FarmTips></FarmTips>
       </section>
     </div>
   );
