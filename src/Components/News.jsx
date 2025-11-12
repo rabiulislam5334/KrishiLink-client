@@ -1,5 +1,7 @@
-import React from "react";
-import { FaLeaf } from "react-icons/fa"; // Using FaLeaf for the central design element
+import React, { useEffect } from "react";
+import { FaLeaf } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const News = () => {
   const newsArticles = [
@@ -13,7 +15,7 @@ const News = () => {
       author: "Nikolas Gibbons",
       excerpt:
         "When a producer evaluates what is necessary to grow a good crop, there are very few inputs that can be forgone. At that point, our objective is to make sure...",
-      link: "#", // Placeholder link
+      link: "#",
     },
     {
       image:
@@ -25,7 +27,7 @@ const News = () => {
       author: "Nikolas Gibbons",
       excerpt:
         "When farmland is purchased, tax code allows the purchaser to deduct the value of the excess fertility in the field like other improvements on the ground, such that...",
-      link: "#", // Placeholder link
+      link: "#",
     },
     {
       image:
@@ -37,25 +39,36 @@ const News = () => {
       author: "Nikolas Gibbons",
       excerpt:
         "In a typical food network model, you buy a 'share' before planting, this enables the farmer to purchase seeds, compost and technology without taking out loans our...",
-      link: "#", // Placeholder link
+      link: "#",
     },
   ];
 
-  const ArticleCard = ({ article }) => (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animation duration in ms
+      once: true, // animate only once
+    });
+  }, []);
+
+  const ArticleCard = ({ article, index }) => (
+    <div
+      className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow "
+      data-aos="fade-up"
+      data-aos-delay={index * 100} // staggered animation
+    >
       <div className="relative">
         {/* Article Image */}
         <img
           src={article.image}
           alt={article.title}
-          className="w-full h-52 object-cover"
+          className="w-full h-52 transform transition ease-in-out duration-700 hover:scale-105 hover:shadow-lg object-cover"
         />
 
         {/* Categories Tags */}
         <div className="absolute top-4 left-4 flex space-x-2">
-          {article.categories.map((cat, index) => (
+          {article.categories.map((cat, idx) => (
             <span
-              key={index}
+              key={idx}
               className="text-xs font-semibold px-3 py-1 bg-green-600 text-white rounded-md shadow-md"
             >
               {cat}
@@ -98,20 +111,22 @@ const News = () => {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Header Section */}
-        <p className="text-lg text-green-700 font-medium tracking-wide">
-          Latest ideas & insights from the world!
-        </p>
-        <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1e2939]">
-          Farming and agriculture news from farmers!
-        </h2>
-        <div className="flex justify-center mt-4 mb-12">
-          <FaLeaf className="text-green-700 text-3xl opacity-70" />
+        <div data-aos="fade-up">
+          <p className="text-lg text-green-700 font-medium tracking-wide">
+            Latest ideas & insights from the world!
+          </p>
+          <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1e2939]">
+            Farming and agriculture news from farmers!
+          </h2>
+          <div className="flex justify-center mt-4 mb-12">
+            <FaLeaf className="text-green-700 text-3xl opacity-70" />
+          </div>
         </div>
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {newsArticles.map((article, index) => (
-            <ArticleCard key={index} article={article} />
+            <ArticleCard key={index} article={article} index={index} />
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
@@ -10,8 +10,17 @@ import {
   FaTractor,
 } from "react-icons/fa";
 import { GiFarmer } from "react-icons/gi";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Services = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   const serviceCards = [
     {
       image:
@@ -51,8 +60,12 @@ const Services = () => {
     },
   ];
 
-  const ServiceCard = ({ service }) => (
-    <div className="bg-white rounded-xl shadow-lg relative h-full overflow-hidden group">
+  const ServiceCard = ({ service, index }) => (
+    <div
+      className="bg-white rounded-xl shadow-lg relative h-full overflow-hidden group"
+      data-aos="fade-up"
+      data-aos-delay={index * 150} // staggered effect
+    >
       {/* Image Section */}
       <div className="relative">
         <img
@@ -90,11 +103,14 @@ const Services = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8">
-        {/* ✅ Flex container centered both sides */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Flex container */}
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12">
-          {/* --- Left Section --- */}
-          <div className="lg:w-1/3 flex flex-col justify-center text-center  lg:text-left">
+          {/* Left Section */}
+          <div
+            className="lg:w-1/3 flex flex-col justify-center text-center lg:text-left"
+            data-aos="fade-right"
+          >
             <div className="mb-8">
               <p className="flex items-center justify-center lg:justify-start text-sm font-semibold text-green-700 uppercase mb-2">
                 <FaLeaf className="mr-2" /> OUR SERVICE
@@ -129,18 +145,15 @@ const Services = () => {
             </div>
           </div>
 
-          {/* --- Right Section: Swiper --- */}
-          <div className="lg:w-2/3  w-full   flex items-center justify-center">
+          {/* Right Section: Swiper */}
+          <div className="lg:w-2/3 w-full flex items-center justify-center">
             <Swiper
               modules={[Autoplay]}
               spaceBetween={20}
               slidesPerView={1}
               centeredSlides={true}
               loop={true}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2, spaceBetween: 30 },
@@ -150,8 +163,8 @@ const Services = () => {
               {serviceCards.map((service, index) => (
                 <SwiperSlide key={index}>
                   <div className="flex justify-center">
-                    <div className=" w-full">
-                      <ServiceCard service={service} />
+                    <div className="w-full">
+                      <ServiceCard service={service} index={index} />
                     </div>
                   </div>
                 </SwiperSlide>

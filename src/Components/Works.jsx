@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
-  FaSeedling, // For Excellent seeds, Growing excellence
-  FaHandsHelping, // For Always support farmer
-  FaRegGrinBeam, // For Power of regeneration (representing vitality/happiness)
-  FaTractor, // For Years of heritage
-  FaAppleAlt, // For Fresh farm harvest
-  FaLeaf, // For Eco friendly packaging, Premium products
-} from "react-icons/fa"; // Importing icons from Font Awesome (Fa)
+  FaSeedling,
+  FaHandsHelping,
+  FaRegGrinBeam,
+  FaTractor,
+  FaAppleAlt,
+  FaLeaf,
+} from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Works = () => {
-  // You can adjust these details or fetch them from an API
   const features = [
     {
       icon: <FaHandsHelping className="text-green-600 text-4xl mb-4" />,
@@ -30,7 +31,7 @@ const Works = () => {
         "Shifting agriculture from being carbon emitter to a powerful carbon sink.",
     },
     {
-      icon: <FaSeedling className="text-green-600 text-4xl mb-4" />, // Re-using seedling, or find another if preferred
+      icon: <FaSeedling className="text-green-600 text-4xl mb-4" />,
       title: "Excellent seeds",
       description:
         "We help foster growth for our clients to contribute the agriculture industry's advancement.",
@@ -42,7 +43,7 @@ const Works = () => {
         "Providing premium vegetable and soft fruit starter plants with our excellent seeds.",
     },
     {
-      icon: <FaLeaf className="text-green-600 text-4xl mb-4" />, // Re-using leaf
+      icon: <FaLeaf className="text-green-600 text-4xl mb-4" />,
       title: "Premium products",
       description:
         "Farmers strength their soil health while increasing crop yields & profitability.",
@@ -54,18 +55,25 @@ const Works = () => {
         "We help foster growth for our clients to contribute the agriculture industry's advancement.",
     },
     {
-      icon: <FaLeaf className="text-green-600 text-4xl mb-4" />, // Re-using leaf
+      icon: <FaLeaf className="text-green-600 text-4xl mb-4" />,
       title: "Eco friendly packaging",
       description:
         "Shifting agriculture from being carbon emitter to a powerful carbon sink.",
     },
   ];
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true, // Animation happens only once
+    });
+  }, []);
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Optional: Section Heading */}
-        <div className="text-center mb-12">
+        {/* Section Heading */}
+        <div className="text-center mb-12" data-aos="fade-up">
           <h2 className="text-base text-green-600 font-semibold tracking-wide uppercase">
             How We Work
           </h2>
@@ -77,11 +85,14 @@ const Works = () => {
           </p>
         </div>
 
+        {/* Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="flex flex-col items-center text-center p-6 border  rounded-lg shadow-sm bg-white hover:scale-105 border-gray-200  transition ease-in-out duration-1000 hover:shadow-xl hover:-translate-y-2"
+              data-aos="fade-up"
+              data-aos-delay={index * 100} // staggered animation
             >
               {/* Icon */}
               <div className="flex-shrink-0 mb-4 bg-green-50 p-3 rounded-full">

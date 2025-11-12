@@ -1,11 +1,20 @@
-import React from "react";
-import bg1 from "../assets/h1-banner3.jpg"; // Sunset field image (main background)
-import bg2 from "../assets/h1-banner4.jpg"; // Tractor in green field (overlay)
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
+import bg1 from "../assets/h1-banner3.jpg";
+import bg2 from "../assets/h1-banner4.jpg";
 
 const Choose = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      once: true, // Only animate once
+    });
+  }, []);
+
   return (
     <section className="py-16 px-4 bg-white w-11/12 mx-auto max-w-7xl">
-      <div className="text-center mb-12">
+      <div className="text-center mb-12" data-aos="fade-up">
         <h2 className="text-4xl font-bold text-green-800 mb-4 flex items-center justify-center gap-2">
           <span className="text-lg">🍃</span>
           WHY CHOOSE US
@@ -22,8 +31,8 @@ const Choose = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-        {/* Left Column: Text and Button */}
-        <div className="space-y-8">
+        {/* Left Column */}
+        <div className="space-y-8" data-aos="fade-right">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-white text-xl">🌱</span>
@@ -82,9 +91,11 @@ const Choose = () => {
           </button>
         </div>
 
-        {/* Right Column: Images with Relative Positioning to Match Photo */}
-        <div className="relative w-full h-[550px] md:h-[650px] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl">
-          {/* Background pattern dots (Top Left) - Subtle green dots array */}
+        {/* Right Column */}
+        <div
+          className="relative w-full h-[550px] md:h-[650px] bg-gray-100 rounded-3xl overflow-hidden shadow-2xl"
+          data-aos="fade-left"
+        >
           <div className="absolute top-0 left-0 w-32 h-32 hidden sm:block opacity-20">
             <div className="grid grid-cols-5 gap-1.5 p-2">
               {[...Array(25)].map((_, i) => (
@@ -93,28 +104,24 @@ const Choose = () => {
             </div>
           </div>
 
-          {/* Main (Right) Image: Tractor in field - Positioned right/top */}
           <div className="absolute top-0 right-0 w-full h-full sm:w-[85%] sm:h-[90%] md:w-[90%] md:h-[80%] rounded-3xl overflow-hidden shadow-2xl">
             <img
-              src={bg1} // Tractor image as main right overlay
+              src={bg1}
               alt="Tractor working in a large field during sunset"
               className="w-full h-full object-cover"
             />
           </div>
 
-          {/* Overlay (Left) Image: Sunset field - Positioned bottom-left, overlapping */}
           <div className="absolute bottom-0 left-0 w-[80%] h-[55%] sm:w-[50%] sm:h-[65%] md:w-[45%] md:h-[70%] rounded-3xl overflow-hidden shadow-2xl z-10 -translate-x-4 md:-translate-x-8">
             <img
-              src={bg2} // Sunset field as left overlay
+              src={bg2}
               alt="Close-up of a field at sunset"
               className="w-full h-full object-cover"
             />
           </div>
 
-          {/* Stats Box: White rounded, positioned bottom-right on top of the overlap */}
           <div className="absolute bottom-[0%] right-0 transform translate-x-4 md:translate-x-8 bg-white p-6 md:p-8 rounded-3xl shadow-2xl z-20 w-[60%] sm:w-[45%] md:w-[50%] max-w-[250px] border border-gray-100">
             <div className="flex flex-col items-center text-center">
-              {/* Custom Icon Stack: Sun + Harvest */}
               <div className="flex flex-col items-center mb-3">
                 <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mb-1">
                   <span className="text-sm text-yellow-900">☀️</span>
