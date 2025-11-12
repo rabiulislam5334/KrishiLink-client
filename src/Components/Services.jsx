@@ -63,7 +63,7 @@ const Services = () => {
       </div>
 
       {/* Content Box */}
-      <div className="absolute inset-x-0 bottom-[-25px] sm:bottom-[-80px] bg-white p-4 sm:p-6 rounded-xl border border-gray-100 shadow-xl mx-4 sm:mx-6 transform group-hover:-translate-y-2 transition-transform duration-300">
+      <div className="absolute inset-x-0 bottom-[-25px] sm:bottom-[-80px] bg-white p-4 sm:p-6 rounded-xl border border-gray-100 shadow-xl mx-4 sm:mx-6 transform group-hover:-translate-y-18 transition-transform duration-300">
         <div className="flex justify-between items-center mb-3 sm:mb-4">
           {/* Icon */}
           <div className="bg-green-100 p-2 sm:p-3 rounded-full">
@@ -90,11 +90,11 @@ const Services = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8">
         {/* ✅ Flex container centered both sides */}
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12">
           {/* --- Left Section --- */}
-          <div className="lg:w-1/3 flex flex-col justify-center text-center lg:text-left">
+          <div className="lg:w-1/3 flex flex-col justify-center text-center  lg:text-left">
             <div className="mb-8">
               <p className="flex items-center justify-center lg:justify-start text-sm font-semibold text-green-700 uppercase mb-2">
                 <FaLeaf className="mr-2" /> OUR SERVICE
@@ -130,7 +130,7 @@ const Services = () => {
           </div>
 
           {/* --- Right Section: Swiper --- */}
-          <div className="lg:w-2/3  w-full  flex items-center justify-center">
+          <div className="lg:w-2/3  w-full   flex items-center justify-center">
             <Swiper
               modules={[Autoplay]}
               spaceBetween={20}
@@ -150,7 +150,7 @@ const Services = () => {
               {serviceCards.map((service, index) => (
                 <SwiperSlide key={index}>
                   <div className="flex justify-center">
-                    <div className="pb-24 w-full">
+                    <div className=" w-full">
                       <ServiceCard service={service} />
                     </div>
                   </div>
