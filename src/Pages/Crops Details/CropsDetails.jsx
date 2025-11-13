@@ -15,7 +15,9 @@ const CropsDetails = () => {
   useEffect(() => {
     const fetchCrop = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/crops/${id}`);
+        const res = await fetch(
+          `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops/${id}`
+        );
         const data = await res.json();
         setCrop(data);
       } catch (err) {
@@ -60,7 +62,7 @@ const CropsDetails = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/crops/${crop._id}/interests`,
+        `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops/${crop._id}/interests`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,7 +96,7 @@ const CropsDetails = () => {
   const handleInterestStatus = async (interestId, status) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/crops/${crop._id}/interests/${interestId}`,
+        `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops/${crop._id}/interests/${interestId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

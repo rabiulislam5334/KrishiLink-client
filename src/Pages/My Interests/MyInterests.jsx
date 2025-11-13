@@ -11,7 +11,7 @@ const MyInterests = () => {
     const fetchMyInterests = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/my-interests/${user.email}`
+          `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/my-interests/${user.email}`
         );
         const data = await res.json();
         setInterests(data);

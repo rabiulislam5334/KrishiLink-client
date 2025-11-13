@@ -39,11 +39,14 @@ const AddCrops = () => {
       interests: [],
     };
 
-    fetch("http://localhost:3000/crops", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cropData),
-    })
+    fetch(
+      "https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cropData),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         toast.success("Crop added successfully!");

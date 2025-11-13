@@ -52,11 +52,14 @@ const Registration = () => {
           .then(() => {
             // Save user in MongoDB
             const newUser = { name, email, image: photo || "" };
-            fetch("http://localhost:3000/users", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(newUser),
-            })
+            fetch(
+              "https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/users",
+              {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(newUser),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 console.log("MongoDB User ID:", data.userId || data.insertedId);
@@ -84,11 +87,14 @@ const Registration = () => {
           image: result.user.photoURL,
         };
 
-        fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(newUser),
-        })
+        fetch(
+          "https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/users",
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(newUser),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log("MongoDB User ID:", data.userId || data.insertedId);

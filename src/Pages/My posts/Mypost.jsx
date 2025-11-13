@@ -15,7 +15,9 @@ const MyPost = () => {
   // Fetch user's crops
   const fetchMyCrops = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/my-crops/${user.email}`);
+      const res = await fetch(
+        `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/my-crops/${user.email}`
+      );
 
       const data = await res.json();
       setMyCrops(data.reverse()); // newest first
@@ -54,9 +56,12 @@ const MyPost = () => {
 
     if (result.isConfirmed) {
       try {
-        await fetch(`http://localhost:3000/crops/${id}`, {
-          method: "DELETE",
-        });
+        await fetch(
+          `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         setMyCrops(myCrops.filter((crop) => crop._id !== id));
         Swal.fire("Deleted!", "Crop has been removed.", "success");
       } catch (error) {
@@ -81,11 +86,14 @@ const MyPost = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/crops/${editCrop._id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
-      });
+      const res = await fetch(
+        `https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops/${editCrop._id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData),
+        }
+      );
       const result = await res.json();
       if (result.modifiedCount > 0) {
         toast.success("Crop updated successfully!");

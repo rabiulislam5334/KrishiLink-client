@@ -13,7 +13,9 @@ const HomePage = () => {
   const [crops, setCrops] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/crops")
+    fetch(
+      "https://krishi-link-app-server-i8y3zfe9y-rabuil-islams-projects.vercel.app/crops"
+    )
       .then((res) => res.json())
       .then((data) => {
         // Sort by _id descending (latest first) and take 6
