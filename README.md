@@ -1,16 +1,16 @@
-# React + Vite
+Website Name: KrishiLink
+Live Site URL: https://krishi-link-app.netlify.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website Features:
 
-Currently, two official plugins are available:
+Browse & Search Crops: Users can quickly search for crops by name, type, or price, making it easy to find exactly what they need.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Advanced Filtering & Sorting: Filter crops by price range and sort by latest, low-to-high, or high-to-low prices for a tailored browsing experience.
 
-## React Compiler
+Responsive & Mobile-Friendly: The website adapts seamlessly to all screen sizes, ensuring a smooth experience on desktop, tablet, and mobile.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Interactive Crop Cards: Engaging crop cards feature hover effects, sliding overlays, and sale badges to make browsing visually appealing.
 
-## Expanding the ESLint configuration
+Highlight Latest Products: Newly added crops are showcased dynamically with images, ratings, and key details to keep users updated.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+User Dashboard & Management: Logged-in users can manage their own crops, view interests from buyers, and update or delete listings easily.
