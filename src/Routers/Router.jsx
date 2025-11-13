@@ -27,10 +27,12 @@ import Registration from "../Auth/Registration";
 import MyPost from "../Pages/My posts/Mypost";
 import AddCrops from "../Pages/Add Crops/AddCrops";
 import MyInterests from "../Pages/My Interests/MyInterests";
+import ErrorPage from "../Errorpages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     element: <Roots />,
     // errorElement: <ErrorPage />,
     children: [

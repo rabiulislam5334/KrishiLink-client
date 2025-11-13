@@ -6,6 +6,7 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { FiMail, FiPhone, FiSend } from "react-icons/fi";
 
 const Footer = () => {
@@ -35,13 +36,6 @@ const Footer = () => {
             style={{ backgroundColor: secondaryGreen }}
           >
             {/* Top green cut-out element (using absolute positioning to approximate the shape) */}
-            <div
-              className="absolute top-0 left-0 h-16 w-16 bg-white"
-              style={{
-                clipPath: "polygon(0 0, 100% 0, 0 100%)",
-                backgroundColor: secondaryGreen,
-              }}
-            ></div>
 
             <div className="flex flex-col justify-between h-full">
               <div className="mb-6">
@@ -198,7 +192,7 @@ const Footer = () => {
                     href="#"
                     className="text-gray-400 hover:text-white transition duration-200"
                   >
-                    <FaTwitter size={18} />
+                    <FaXTwitter size={18} />
                   </a>
                   <a
                     href="#"

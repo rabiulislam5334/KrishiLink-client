@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router";
+import logo from "../assets/logo.jpg";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -55,8 +56,8 @@ const Navber = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-              : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              ? "text-green-700 border-b-2 border-green-500 font-semibold"
+              : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
           }
         >
           Home
@@ -68,8 +69,8 @@ const Navber = () => {
           to="/all_crops"
           className={({ isActive }) =>
             isActive
-              ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-              : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+              ? "text-green-700 border-b-2 border-green-500 font-semibold"
+              : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
           }
         >
           All Crops
@@ -83,8 +84,8 @@ const Navber = () => {
               to="/auth/login"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
               }
             >
               Login
@@ -95,8 +96,8 @@ const Navber = () => {
               to="/auth/register"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
               }
             >
               Register
@@ -110,8 +111,8 @@ const Navber = () => {
               to="/my_profile"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
               }
             >
               My Profile
@@ -122,8 +123,8 @@ const Navber = () => {
               to="/add_crops"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-600 hover:border-b-2 hover:border-green-500"
               }
             >
               Add Crops
@@ -134,8 +135,8 @@ const Navber = () => {
               to="/my_posts"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-600 hover:border-b-2 hover:border-green-500"
               }
             >
               My Posts
@@ -146,8 +147,8 @@ const Navber = () => {
               to="/interests"
               className={({ isActive }) =>
                 isActive
-                  ? "text-orange-500 border-b-2 border-orange-500 font-semibold"
-                  : "hover:text-orange-500 hover:border-b-2 hover:border-orange-500"
+                  ? "text-green-700 border-b-2 border-green-500 font-semibold"
+                  : "hover:text-green-500 hover:border-b-2 hover:border-green-500"
               }
             >
               My Interests
@@ -182,13 +183,15 @@ const Navber = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
+                    d="M4 6h16M4 12h16m-8 6h8"
                   />
                 </svg>
               </div>
+
+              {/* ✅ এই অংশে `dropdown-content` এ `absolute` positioning fix করো */}
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow absolute z-[1000]"
               >
                 {navLinks}
               </ul>
@@ -196,14 +199,15 @@ const Navber = () => {
 
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <Link to="/">
-                <img
-                  src="https://cdn.worldvectorlogo.com/logos/gskill.svg"
-                  alt="Logo"
-                  className="w-20 h-20"
-                />
+              <Link
+                to="/"
+                className="flex mx-auto justify-center items-center gap-0"
+              >
+                <img src={logo} alt="Logo" className="w-20 h-20" />
+                <h1 className="text-2xl text-green-700 font-bold">
+                  Krishi Link
+                </h1>
               </Link>
-              <h1 className="text-xl font-bold">Skill Swap</h1>
             </div>
           </div>
 
@@ -252,7 +256,7 @@ const Navber = () => {
 
                     <Link
                       to="/my_profile"
-                      className="btn btn-sm w-full mb-2 bg-orange-500 hover:bg-orange-400 text-white font-semibold"
+                      className="btn btn-sm w-full mb-2 bg-green-700 hover:bg-green-400 text-white font-semibold"
                     >
                       View Profile
                     </Link>

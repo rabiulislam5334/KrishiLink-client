@@ -77,7 +77,7 @@ const Works = () => {
           <h2 className="text-base text-green-600 font-semibold tracking-wide uppercase">
             How We Work
           </h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             Our Core Values
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
@@ -88,26 +88,28 @@ const Works = () => {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center p-6 border  rounded-lg shadow-sm bg-white hover:scale-105 border-gray-200  transition ease-in-out duration-1000 hover:shadow-xl hover:-translate-y-2"
-              data-aos="fade-up"
-              data-aos-delay={index * 100} // staggered animation
-            >
-              {/* Icon */}
-              <div className="flex-shrink-0 mb-4 bg-green-50 p-3 rounded-full">
-                {feature.icon}
+            <div className="shadow-lg transform group-hover:scale-105 transition duration-500 border-b-4 rounded-3xl border-b-green-700 ease-out">
+              <div
+                key={index}
+                className="flex flex-col items-center text-center p-6 border  rounded-lg shadow-sm bg-white hover:scale-105 border-gray-200   "
+                data-aos="fade-up"
+                data-aos-delay={index * 100} // staggered animation
+              >
+                {/* Icon */}
+                <div className="flex-shrink-0 mb-4 bg-green-50 p-3 rounded-full">
+                  {feature.icon}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mt-1 text-base text-gray-600">
+                  {feature.description}
+                </p>
               </div>
-
-              {/* Title */}
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                {feature.title}
-              </h3>
-
-              {/* Description */}
-              <p className="mt-1 text-base text-gray-600">
-                {feature.description}
-              </p>
             </div>
           ))}
         </div>

@@ -29,7 +29,7 @@ const MyInterests = () => {
   if (loading) return <Loader></Loader>;
 
   return (
-    <div className="w-11/12 md:mt-30 mx-auto py-6">
+    <div className="w-11/12 mt-30 mx-auto py-6">
       <h1 className="text-2xl font-bold mb-6 text-center text-green-700">
         My Interests
       </h1>

@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-// GSAP লাইবেরি install করো: npm install gsap
-// তারপর import করো:
+
 import { gsap } from "gsap";
-// Optional: Parallax effect-এর জন্য ScrollTrigger plugin (npm install gsap@latest)
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// GSAP register করো যদি ScrollTrigger use করো
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const Herosection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const autoplayDelay = 7000; // Slowed down: 7 seconds
-
-  // স্লাইড ডেটা: সব image রাখা হয়েছে + shortTitle for nav text
+  const autoplayDelay = 7000;
   const slides = [
     {
       type: "image",
@@ -21,7 +18,7 @@ const Herosection = () => {
         "https://i.pinimg.com/736x/bd/a5/e2/bda5e2a411b87e0dc47feec461adb919.jpg", // Sustainable Farming photo
       title: "High Quality Fresh Organic Foods",
       subtitle: "Discover the magic of sustainable agriculture.",
-      welcome: "Welcome to Agrite",
+      welcome: "Welcome to Krishi Link",
       shortTitle: "Organic & Healthy", // Nav text like image
     },
     {
@@ -30,7 +27,7 @@ const Herosection = () => {
         "https://static.vecteezy.com/system/resources/thumbnails/051/805/106/small/tractor-spraying-pesticides-copy-space-free-space-for-text-farm-field-with-young-sprouts-background-rural-landscape-photo.jpg", // Farm to Table Delivery photo
       title: "Organic Food Delivery",
       subtitle: "From Our Farm to Your Table, Fresh & Fast.",
-      welcome: "Welcome to Agrite",
+      welcome: "Welcome to Krishi Link",
       shortTitle: "Agriculture Leader", // Nav text like image
     },
     {
@@ -39,12 +36,11 @@ const Herosection = () => {
         "https://t4.ftcdn.net/jpg/03/57/54/77/360_F_357547735_aTZvm1ec8Uzgsd1aTukmFiOw4iXX2aKS.jpg", // Eco Products Nature photo
       title: "Natural & Eco Products",
       subtitle: "Sustainably Sourced Goods for a Better Tomorrow.",
-      welcome: "Welcome to Agrite",
+      welcome: "Welcome to Krishi Link",
       shortTitle: "Natural & Eco Products", // Nav text like image
     },
   ];
 
-  // প্রতিটি স্লাইড এবং টেক্সট কন্টেইনারকে GSAP দিয়ে টার্গেট করার জন্য Refs
   const slideRefs = useRef([]);
   const contentRefs = useRef([]);
 
@@ -60,11 +56,9 @@ const Herosection = () => {
 
   // --- GSAP ট্রানজিশন লজিক (Slowed down transitions) ---
   useEffect(() => {
-    // অ্যাক্টিভ স্লাইড বাদে বাকি সব স্লাইডকে অপাসিটি 0-তে সেট করা + zoom transition (slower)
     slideRefs.current.forEach((el, i) => {
       if (!el) return;
 
-      // স্লাইড ট্রানজিশন: Fade + subtle zoom for modern feel (duration increased to 1.8s)
       gsap.to(el, {
         opacity: i === activeIndex ? 1 : 0,
         duration: 1.8, // Slower slide change
@@ -80,7 +74,6 @@ const Herosection = () => {
         gsap.to(el, { borderTop: "none", duration: 0.5 });
       }
 
-      // শুধুমাত্র বর্তমান অ্যাক্টিভ স্লাইডের টেক্সট অ্যানিমেট (Staggered + Parallax hint, timings slowed, from top)
       if (i === activeIndex && contentRefs.current[i]) {
         const content = contentRefs.current[i];
         if (!content) return;
@@ -88,7 +81,6 @@ const Herosection = () => {
         // Reset previous animations
         gsap.set(content.children, { clearProps: "all" });
 
-        // টেক্সটকে অ্যানিমেট করার জন্য একটি টাইমলাইন (Staggered Fade-up + scale, from top)
         const tl = gsap
           .timeline({ defaults: { duration: 1.0, ease: "power3.out" } }) // Duration increased
           .fromTo(

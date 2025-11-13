@@ -15,8 +15,8 @@ const Choose = () => {
   return (
     <section className="py-16 px-4 bg-white w-11/12 mx-auto max-w-7xl">
       <div className="text-center mb-12" data-aos="fade-up">
-        <h2 className="text-4xl font-bold text-green-800 mb-4 flex items-center justify-center gap-2">
-          <span className="text-lg">🍃</span>
+        <h2 className="text-xl font-bold text-green-800 mb-4 flex items-center justify-center gap-2">
+          <span className="text-xl">🍃</span>
           WHY CHOOSE US
         </h2>
         <div className="text-5xl font-extrabold text-gray-800 mb-6">
