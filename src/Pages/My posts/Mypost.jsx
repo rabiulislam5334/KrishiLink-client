@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Loader from "../../Components/Loader";
 
 const MyPost = () => {
   const { user } = useContext(AuthContext);
@@ -106,11 +107,13 @@ const MyPost = () => {
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (loading) return <Loader></Loader>;
 
   return (
     <div className="w-11/12 mx-auto my-20 p-4">
-      <h1 className="text-xl font-bold mb-4 text-center">My Posts</h1>
+      <h1 className="text-2xl text-green-700 font-bold mb-4 text-center">
+        My Posts
+      </h1>
 
       {myCrops.length === 0 ? (
         <p className="text-center">No crops added yet.</p>
@@ -144,7 +147,7 @@ const MyPost = () => {
                   <td className="px-3 py-2 border whitespace-nowrap flex justify-center gap-2">
                     <button
                       onClick={() => handleEdit(crop)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs"
+                      className="bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded text-xs"
                     >
                       Edit
                     </button>
@@ -168,7 +171,7 @@ const MyPost = () => {
                 onClick={() => handlePageChange(i + 1)}
                 className={`mx-1 my-1 px-3 py-1 border rounded ${
                   currentPage === i + 1
-                    ? "bg-green-600 text-white"
+                    ? "bg-green-700 text-white"
                     : "bg-white text-gray-700"
                 }`}
               >
