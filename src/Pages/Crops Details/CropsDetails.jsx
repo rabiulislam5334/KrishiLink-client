@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import Loader from "../../Components/Loader";
+import { FaXTwitter } from "react-icons/fa6";
 
 const CropsDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [crop, setCrop] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -43,7 +45,7 @@ const CropsDetails = () => {
   if (loading)
     return (
       <p className="text-center py-10">
-        <Loader></Loader>
+        <Loader />
       </p>
     );
   if (!crop) return <p className="text-center py-10">Crop not found.</p>;
@@ -69,6 +71,22 @@ const CropsDetails = () => {
       return;
     }
 
+    const totalPrice = quantityNum * crop.pricePerUnit;
+
+    const result = await Swal.fire({
+      title: "Confirm Interest",
+      html: `You are about to send an interest for <strong>${quantityNum} ${
+        crop.unit
+      }</strong> of <strong>${
+        crop.name
+      }</strong>.<br>Total Price: <strong>$${totalPrice.toFixed(2)}</strong>`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, submit",
+    });
+
+    if (!result.isConfirmed) return;
+
     const interest = {
       cropId: crop._id,
       userEmail: user.email,
@@ -76,6 +94,7 @@ const CropsDetails = () => {
       quantity: quantityNum,
       message,
       status: "pending",
+      totalPrice,
     };
 
     try {
@@ -99,12 +118,14 @@ const CropsDetails = () => {
       }));
       setQuantity(1);
       setMessage("");
+
+      navigate("/interests"); // Navigate after submission
     } catch (err) {
       Swal.fire("Error!", err.message, "error");
     }
   };
 
-  // Handle interest accept/reject
+  // Handle interest accept/reject (for owner)
   const handleInterestStatus = async (interestId, status) => {
     try {
       const res = await fetch(
@@ -136,8 +157,7 @@ const CropsDetails = () => {
   return (
     <>
       <section>
-        {" "}
-        <div className="">
+        <div>
           <div
             className="hero h-100"
             style={{
@@ -148,19 +168,20 @@ const CropsDetails = () => {
             <div className="hero-overlay"></div>
             <div className="hero-content text-neutral-content text-center">
               <div className="max-w-md">
-                <h1 className="mb-5 text-5xl font-bold"> Your Crops Details</h1>
+                <h1 className="mb-5 text-5xl font-bold">Your Crops Details</h1>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <div className="w-10/12 my-10 mx-auto text-center py-10">
         <div
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-center mx-auto max-w-6xl"
           data-aos="fade-up"
         >
           {/* Left Side: Image */}
-          <div className="relative group  mx-auto" data-aos="zoom-in">
+          <div className="relative group mx-auto" data-aos="zoom-in">
             {crop.quantity <= 0 && (
               <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded z-10">
                 Sold
@@ -176,7 +197,7 @@ const CropsDetails = () => {
           </div>
 
           {/* Right Side: Details */}
-          <div data-aos="fade-left" className="mx-auto text-center ">
+          <div data-aos="fade-left" className="mx-auto text-center">
             <h1 className="text-3xl font-semibold text-gray-800 mb-2">
               {crop.name}
             </h1>
@@ -192,6 +213,7 @@ const CropsDetails = () => {
               {crop.description?.slice(0, 150)}...
             </p>
 
+            {/* Interest Form for non-owner */}
             {!isOwner && user && (
               <div data-aos="fade-up" className="mb-5">
                 <h2 className="text-lg font-semibold mb-2 text-green-700">
@@ -209,17 +231,10 @@ const CropsDetails = () => {
                       type="number"
                       className="w-14 text-center border-x focus:outline-none"
                       value={quantity}
-                      onChange={(e) =>
-                        setQuantity(
-                          Math.max(
-                            1,
-                            Math.min(
-                              crop.quantity,
-                              parseInt(e.target.value) || 1
-                            )
-                          )
-                        )
-                      }
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 1;
+                        setQuantity(Math.max(1, Math.min(crop.quantity, val)));
+                      }}
                       min="1"
                       max={crop.quantity}
                     />
@@ -233,21 +248,36 @@ const CropsDetails = () => {
                     </button>
                   </div>
 
-                  <button
-                    onClick={handleInterest}
-                    className={`btn ${
-                      alreadyInterested || crop.quantity <= 0
-                        ? "btn-disabled"
-                        : "bg-green-700 hover:bg-green-800 text-white"
-                    }`}
-                    disabled={alreadyInterested || crop.quantity <= 0}
-                  >
-                    {alreadyInterested
-                      ? "Interest Sent"
-                      : crop.quantity <= 0
-                      ? "Out of Stock"
-                      : "Submit Interest"}
-                  </button>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-sm text-gray-600">
+                      Total Price:{" "}
+                      <strong>
+                        ${(quantity * crop.pricePerUnit).toFixed(2)}
+                      </strong>
+                    </p>
+                    <button
+                      onClick={handleInterest}
+                      className={`btn ${
+                        quantity < 1 || alreadyInterested || crop.quantity <= 0
+                          ? "btn-disabled"
+                          : "bg-green-700 hover:bg-green-800 text-white"
+                      }`}
+                      disabled={
+                        quantity < 1 || alreadyInterested || crop.quantity <= 0
+                      }
+                    >
+                      {alreadyInterested
+                        ? "Interest Sent"
+                        : crop.quantity <= 0
+                        ? "Out of Stock"
+                        : "Submit Interest"}
+                    </button>
+                    {quantity < 1 && (
+                      <p className="text-xs text-red-500 mt-1">
+                        Quantity must be at least 1
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <input
@@ -273,7 +303,7 @@ const CropsDetails = () => {
             </div>
 
             <div className="flex gap-2 justify-center mt-4">
-              {[FaFacebookF, FaTwitter, FaLinkedinIn].map((Icon, idx) => (
+              {[FaFacebookF, FaXTwitter, FaLinkedinIn].map((Icon, idx) => (
                 <div
                   key={idx}
                   className="w-8 h-8 border border-gray-300 flex items-center justify-center rounded hover:bg-green-700 hover:text-white cursor-pointer transition duration-300"
